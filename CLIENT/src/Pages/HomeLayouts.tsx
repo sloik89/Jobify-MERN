@@ -1,8 +1,10 @@
 
-
+import { Outlet } from "react-router-dom"
 const HomeLayouts = () => {
   return (
-    <div>HomeLayouts</div>
+    <div>
+      <Outlet/>
+    </div>
   )
 }
 
