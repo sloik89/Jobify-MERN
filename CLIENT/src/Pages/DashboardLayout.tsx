@@ -11,6 +11,8 @@ const DashboardLayout = () => {
   const [isDarkTheme,setIsDarkTheme] = useState(false)
   const toggleDarkTheme = () => {
     console.log('toggle dark theme')
+    setIsDarkTheme(!isDarkTheme)
+    document.body.classList.toggle('dark-theme',!isDarkTheme)
   }
   const toggleSidebar = () => {
     console.log('toogle sidebar')
@@ -21,11 +23,11 @@ const DashboardLayout = () => {
   }
   return (
     <DashboardContext.Provider value={{ isDarkTheme,showSidebar,user,logoutUser,toggleSidebar,toggleDarkTheme}}>
-    <Wrapper>
+    <Wrapper >
       <main className="dashboard">
         {showSidebar && <SmallSidebar/>}
-       
         <BigSidebar/>
+       
         <div>
           <Navbar/>
           <div className="dashboard-page">

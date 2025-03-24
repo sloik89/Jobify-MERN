@@ -13,5 +13,17 @@ button {
     color:var(--primary-500);
     cursor:pointer;
 }
+.btn-container{
+    display:flex;
+    align-items:center;
+}
+.logo{
+    @media (min-width:992px){
+    display:none
+}
+}
+
+
+
 `
 export default Wrapper

@@ -1,6 +1,6 @@
 import { FaAlignLeft } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
-import { Logo } from '../components'
+import { Logo, LogoutContainer, ThemeToggle } from '../components'
 import { useDashboardConstext } from '../Pages/DashboardLayout'
 import { ContextProps } from '../types/types'
 
@@ -19,7 +19,8 @@ const Navbar = () => {
           <h4 className='logo-text'>dashboard</h4>
         </div>
         <div className='btn-container'>
-          toggle/logout
+          <ThemeToggle/>
+          <LogoutContainer/>
         </div>
       </div>
     </Wrapper>
