@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const Wrapper = styled.div`
     display:none;
-    background-color:var(--grey-200);
+    background-color:var(--background-secondary-color);
     height:100vh;
     .sidebar-content{
         margin-top:2rem;

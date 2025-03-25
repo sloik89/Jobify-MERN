@@ -6,6 +6,12 @@ button {
     font-size:2rem;
     margin-right:1rem;
 }
+.dark{
+    color:var(--black);
+}
+.light{
+    color:var(--white);
+}
 `
 
 export default Wrapper

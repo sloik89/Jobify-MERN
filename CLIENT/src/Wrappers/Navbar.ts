@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const Wrapper = styled.nav`
 padding:1rem 2rem;
-background-color:var(--grey-100);
+background-color:var(--background-secondary-color);
 .nav-center{
     display:flex;
     justify-content:space-between;
@@ -12,6 +12,7 @@ button {
     border:none;
     color:var(--primary-500);
     cursor:pointer;
+    background-color:transparent;
 }
 .btn-container{
     display:flex;

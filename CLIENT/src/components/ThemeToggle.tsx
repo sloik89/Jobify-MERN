@@ -8,7 +8,7 @@ const ThemeToggle = () => {
     
   return (
     <Wrapper>
-        <button onClick={toggleDarkTheme}>
+        <button onClick={toggleDarkTheme} className={`${isDarkTheme ? 'light' : 'dark'}`}>
             
         {isDarkTheme ? <BsFillMoonFill/> : <BsFillSunFill/>}
         </button>
