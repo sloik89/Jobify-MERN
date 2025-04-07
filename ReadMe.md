@@ -25,3 +25,30 @@ Express async errors handles asynchrouns errors and passes them to the Error mid
 403 FORBIDDEN
 404 NOT_FOUND
 500 INTERNAL_SERVER_ERROR
+
+### Express-Validator;
+
+```js
+app.post(
+  "/api/v1/test",
+  [
+    body("name")
+      .notEmpty()
+      .withMessage("name is required")
+      .isLength({ min: 50 })
+      .withMessage("name must be at least 50"),
+  ],
+  (req, res, next) => {
+    const errors = validationResult(req);
+    console.log(errors);
+    if (!errors.isEmpty()) {
+      const errMsg = errors.array().map((er) => er.msg);
+      return res.status(400).json({ errors: errMsg });
+    }
+    next();
+  },
+  (req, res) => {
+    res.json({ msg: "test" });
+  }
+);
+```

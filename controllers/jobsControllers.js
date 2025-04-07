@@ -1,3 +1,4 @@
+import { body, validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
 import { nanoid } from 'nanoid';
 import { NotFoundError } from '../errors/CustomError.js';
@@ -24,20 +25,15 @@ export const createJob = async(req,res) =>{
 
 export const getSingleJob = async(req,res) =>{
     const {id} = req.params
-    console.log(id)
-    const job = await JobModel.findById(String(id))
-    if(!job){
-        throw new  NotFoundError(`No job with id ${id}`)
-    }
+    
+     const job = await JobModel.findById(id)
     res.status(StatusCodes.OK).json({job})
  }
  
  export const deleteJob = async(req,res) =>{
     const {id} = req.params
     const removedJob = await JobModel.findByIdAndDelete(id)
-    if(!removedJob){
-        throw new  NotFoundError(`No job with id ${id}`)
-    }
+   
     
     res.status(200).json({msg:`job with ${removedJob._id} deleted`})
  }
@@ -45,14 +41,10 @@ export const getSingleJob = async(req,res) =>{
  export const editJob = async(req,res) =>{
     const {position,company} = req.body
    
-    if(!company || !position){
-        return res.status(400).json({msg:'please provide company and postion'})
-    }
+   
     const {id} = req.params
     const job = await JobModel.findByIdAndUpdate(id,{position,company},{new:true})
-    if(!job){
-        throw new  NotFoundError(`No job with id ${id}`)
-    }
+   
 
 
     res.status(200).json({msg:'job modified',job})
