@@ -1,10 +1,14 @@
+import { StatusCodes } from 'http-status-codes';
 import { nanoid } from 'nanoid';
+import { NotFoundError } from '../errors/CustomError.js';
+import JobModel from '../models/JobsModel.js';
 let jobs = [
     {id:nanoid(),company:'apple', position:'front-end'},
     {id:nanoid(),company:'google', position:'back-end'},
 ]
 export const getAllJobs = async(req,res) =>{
-    res.status(200).json(jobs)
+    const items = await JobModel.find({})
+    res.status(StatusCodes.OK).json(items)
 }
 
 export const createJob = async(req,res) =>{
@@ -12,29 +16,30 @@ export const createJob = async(req,res) =>{
        if(!company || !position){
            return res.status(400).json({msg:'please provide company and postion'})
        }
-       const item = {id:nanoid(10),company,position}
+      
+       const item = await JobModel.create({company,position})
        jobs.push(item)
-       res.status(200).json({item})
+       res.status(StatusCodes.CREATED).json({item})
 }
 
 export const getSingleJob = async(req,res) =>{
     const {id} = req.params
-    const job = jobs.find(item=>item.id === id)
+    console.log(id)
+    const job = await JobModel.findById(String(id))
     if(!job){
-        return res.status(404).json({msg:`no job with id ${id}`})
+        throw new  NotFoundError(`No job with id ${id}`)
     }
-    res.status(200).json({job})
+    res.status(StatusCodes.OK).json({job})
  }
  
  export const deleteJob = async(req,res) =>{
     const {id} = req.params
-    const job = jobs.find(item=>item.id === id)
-    if(!job){
-        return res.status(404).json({msg:`no job with id ${id}`})
+    const removedJob = await JobModel.findByIdAndDelete(id)
+    if(!removedJob){
+        throw new  NotFoundError(`No job with id ${id}`)
     }
-    const newJobs = jobs.filter(job=>job.id !== id)
-    jobs = newJobs
-    res.status(200).json({msg:'job deleted'})
+    
+    res.status(200).json({msg:`job with ${removedJob._id} deleted`})
  }
  
  export const editJob = async(req,res) =>{
@@ -44,12 +49,11 @@ export const getSingleJob = async(req,res) =>{
         return res.status(400).json({msg:'please provide company and postion'})
     }
     const {id} = req.params
-    const job = jobs.find(item=>item.id === id)
+    const job = await JobModel.findByIdAndUpdate(id,{position,company},{new:true})
     if(!job){
-        return res.status(404).json({msg:`no job with id ${id}`})
+        throw new  NotFoundError(`No job with id ${id}`)
     }
-    job.company = company
-    job.position = position
+
 
     res.status(200).json({msg:'job modified',job})
  }

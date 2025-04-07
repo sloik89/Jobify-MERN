@@ -11,3 +11,17 @@ The 'not found' middleware in Express.js is used when a request is made to a rou
 On the other hand, the "error" middleware in Express.js is used to handle any errors that occur during the processing of a request. It is typicaly used to catch unexpected errors or exceptions that are not explicityly handled in the application code. It logs the error and sends a 500 status code, indicating an internal server error.
 
 In summary, the "not found" middleware is specifically designed to handle request for non-existent routes, while the "error" middleware is catch-all for handling unexpected errors that occur durning request processing.
+
+### Express async errors
+
+Express async errors handles asynchrouns errors and passes them to the Error middleware
+
+### Example code errors
+
+200 OK
+201 CREATED
+400 BAD_REQUEST
+401 UNAUTHORIZED
+403 FORBIDDEN
+404 NOT_FOUND
+500 INTERNAL_SERVER_ERROR
