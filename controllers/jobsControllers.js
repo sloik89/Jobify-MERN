@@ -19,7 +19,7 @@ export const createJob = async(req,res) =>{
        }
       
        const item = await JobModel.create({company,position})
-       jobs.push(item)
+       
        res.status(StatusCodes.CREATED).json({item})
 }
 

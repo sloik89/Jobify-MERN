@@ -17,6 +17,7 @@ if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
 // routers
+import authRouter from './routes/authRoute.js';
 import jobsRouter from './routes/jobRoute.js';
 app.use(express.json())
 
@@ -24,6 +25,7 @@ app.use(express.json())
 
 
 app.use('/api/v1/jobs',jobsRouter)
+app.use('/api/v1/auth',authRouter)
 app.post('/api/v1/test',validateTest,(req,res)=>{
     res.json({msg:'test'})
 })

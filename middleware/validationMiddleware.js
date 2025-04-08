@@ -2,8 +2,8 @@ import { body, param, validationResult } from 'express-validator';
 import mongoose from 'mongoose';
 import { BadRequestError, NotFoundError } from '../errors/CustomError.js';
 import JobModel from '../models/JobsModel.js';
+import User from '../models/UserModel.js';
 import { JOB_STATUS, JOB_TYPE } from '../utilis/constants.js';
-
 const withValidattionErrors = (validateValues) =>{
     return [
         validateValues,
@@ -39,4 +39,16 @@ export const validateIdParam = withValidattionErrors([
                 }
         })
         .withMessage('invalid MongoDB id')
+])
+
+export const validateRegisterInput = withValidattionErrors([
+    body('name').notEmpty().withMessage('name is required'),
+    body('email').notEmpty().withMessage('email is required').isEmail().withMessage('invalid email format').custom(async (email)=>{
+        const user = await User.findOne({email})
+        if(user){
+            throw new BadRequestError('email allready exsist')
+        }
+    }),
+    body('password').notEmpty().withMessage('password is required'),
+    body('location').notEmpty().withMessage('location is required'),
 ])
