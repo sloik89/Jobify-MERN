@@ -11,7 +11,7 @@ import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 import { validateTest } from './middleware/validationMiddleware.js';
 dotenv.config()
 
-
+// test
 const app = express()
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
